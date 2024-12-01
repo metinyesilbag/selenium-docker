@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB = credentials('dockerhub-creds')
+                DOCKER_HUB_USR = 'myesilbag'
+                DOCKER_HUB_PSW = '99Gfm839e.'
     }
 
     stages {
