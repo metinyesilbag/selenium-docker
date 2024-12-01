@@ -12,7 +12,7 @@ pipeline{
 
         stage('Build Image'){
             steps{
-                bat 'docker build -t=vinsdocker/selenium:latest .'
+                bat 'docker build -t=myesilbag/selenium:latest .'
             }
         }
 
@@ -22,9 +22,9 @@ pipeline{
             }
             steps{
                 bat 'echo $DOCKER_HUB_PSW$ | docker login -u $DOCKER_HUB_USR$ --password-stdin'
-                bat 'docker push vinsdocker/selenium:latest'
-                bat "docker tag vinsdocker/selenium:latest vinsdocker/selenium:${env.BUILD_NUMBER}"
-                bat "docker push vinsdocker/selenium:${env.BUILD_NUMBER}"
+                bat 'docker push myesilbag/selenium:latest'
+                bat "docker tag myesilbag/selenium:latest myesilbag/selenium:$env.BUILD_NUMBER$"
+                bat "docker push myesilbag/selenium:$env.BUILD_NUMBER$"
             }
         }
 
