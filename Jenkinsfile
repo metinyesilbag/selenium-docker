@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB = credentials('dockerhub-creds') // credentials() komutu ile güvenli kimlik bilgilerini alıyoruz.
+        DOCKER_HUB = credentials('dockerhub-creds')
     }
 
     stages {
@@ -20,7 +20,6 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                // Docker login işlemi yapılırken environment üzerinden alınan değerler kullanılıyor
                 bat "echo ${DOCKER_HUB_PSW} | docker login -u ${DOCKER_HUB_USR} --password-stdin"
                 bat 'docker push myesilbag/dockerhub-creds:latest'
                 bat "docker tag myesilbag/dockerhub-creds:latest myesilbag/dockerhub-creds:${env.BUILD_NUMBER}"
