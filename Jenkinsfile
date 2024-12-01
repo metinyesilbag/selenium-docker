@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build Jar') {
             steps {
-                node('any') {  // Specify the agent or label
+                node('windows') {  // Windows etiketini kullanalım
                     bat 'mvn clean package -DskipTests'
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                node('any') {  // Specify the agent or label
+                node('windows') {  // Windows etiketini kullanalım
                     bat 'docker build -t myesilbag/dockerhub-creds:latest .'
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                node('any') {  // Specify the agent or label
+                node('windows') {  // Windows etiketini kullanalım
                     bat "echo ${DOCKER_HUB_PSW} | docker login -u ${DOCKER_HUB_USR} --password-stdin"
                     bat 'docker push myesilbag/dockerhub-creds:latest'
                     bat "docker tag myesilbag/dockerhub-creds:latest myesilbag/dockerhub-creds:${env.BUILD_NUMBER}"
@@ -37,7 +37,7 @@ pipeline {
 
     post {
         always {
-            node('any') {  // Specify the agent or label
+            node('windows') {  // Windows etiketini kullanalım
                 bat 'docker logout'
             }
         }
